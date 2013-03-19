@@ -1,4 +1,1 @@
-theCypher
-=========
-
-Freestyle rap where ever you are
+This is theCypher, a tool to enter freestyle rap events and view them 

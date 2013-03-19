@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<events>
+  <event>
+    <location>Underground</location>
+    <city>Cologne</city>
+    <price>For free</price>
+    <date>-</date>
+    <time>21:00</time>
+    <everyWeek>Thursday</everyWeek>
+    <email>foo@boo.com</email>
+    <name>Joe</name>
+    <website>theCypher.com</website>
+    <approved>true</approved>
+  </event>
+</events>
