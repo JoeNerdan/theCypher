@@ -29,84 +29,148 @@ class events {
     //
     $this->content = <<<HTML
     here should be a list of events... and a map
-<a href="events/add/">Add an event</a>
+<a href="/events/add/">Add an event</a>
 HTML;
 
     $theEvents = <<<HTML
 <div>
 HTML
-      .$eventHandler->readEvents() .<<<HTML
+    .$eventHandler->readEvents() .<<<HTML
 </div>
 HTML
-      ;
+    ;
 
     $this->content .= $theEvents. <<<HTML
+<div id="mapContainer"> 
+
 
     <div id="map-canvas">asd</div>
+
+</div>
 
 <style type="text/css">
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
       #map-canvas { height: 100%; width:100%; position:fixed; }
+      #mapContainer {
+      height: 600px;
+      width: 500px;
+      }
     </style>
 <!-- FIXME find a way to store that api key somewhere-->
     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=XXX&sensor=false">
+      src="https://maps.googleapis.com/maps/api/js?key=&sensor=false">
     </script>
     <script type="text/javascript">
       function initialize() {
+        //middle of germany
         var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
+          center: new google.maps.LatLng(50.9, 10.26),
+          zoom: 6,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
+
+
+   var address = 'Cologne';
+
+   var geocoder = new google.maps.Geocoder();
+
+   geocoder.geocode({
+      'address': address
+   }, 
+   function(results, status) {
+      if(status == google.maps.GeocoderStatus.OK) {
+         new google.maps.Marker({
+            position: results[0].geometry.location,
+            map: map,
+            title: "foo",
+
+         });
+      }
+   });
+
+   var address = 'berlin';
+   geocoder.geocode({
+      'address': address
+   }, 
+   function(results, status) {
+      if(status == google.maps.GeocoderStatus.OK) {
+         new google.maps.Marker({
+            position: results[0].geometry.location,
+            map: map
+         });
+      }
+   });
+
+var marker = new google.maps.Marker({
+
+  position: new google.maps.LatLng(50.9, 10.26),
+    map: map,
+              title: "title",
+              });
+
+      var contentString = "Hello!!!";
+      var infowindow = new google.maps.InfoWindow;
+
+      bindInfoW(marker, contentString, infowindow);
+
+
+      function bindInfoW(marker, contentString, infowindow)
+      {
+                google.maps.event.addListener(marker, 'click', function() {
+                              infowindow.setContent(contentString);
+                                          infowindow.open(map, marker);
+                                      });
+      }
+
       }
       google.maps.event.addDomListener(window, 'load', initialize);
+
     </script>
 
 
 HTML;
 
     $this->write();
+}
+
+
+
+
+//fixme is this right here? should it be callable by url?
+function save(){
+  $foo = new eventHandler();
+  $testData = array(
+    "location" => "undergorund",
+    "city" => "cologne",
+    "price" => "for free",
+    "date" => "-", // TODO calculate next date according to week day the event reoccours on
+    "time" => "22:00",
+    "everyWeek" => "Thursday",
+    "email" => "foo@boo.com",
+    "name" => "burnt",
+    "website" => "thecypher"
+  );
+  $foo->saveEvent($testData);
+}
+
+function add() {
+  //  var_dump($_POST);
+
+  $wasSaved = false;
+  if (isset($_POST['verified'])) {
+    $wasSaved = true;
   }
 
 
-
-
-  //fixme is this right here? should it be callable by url?
-  function save(){
-    $foo = new eventHandler();
-    $testData = array(
-      "location" => "undergorund",
-      "city" => "cologne",
-      "price" => "for free",
-      "date" => "-", // TODO calculate next date according to week day the event reoccours on
-      "time" => "22:00",
-      "everyWeek" => "Thursday",
-      "email" => "foo@boo.com",
-      "name" => "burnt",
-      "website" => "thecypher"
-    );
-    $foo->saveEvent($testData);
-  }
-
-  function add() {
-    var_dump($_POST);
-
-    $wasSaved = false;
-    if (isset($_POST['verified'])) {
-      $wasSaved = true;
-    }
-
-
-    if ($wasSaved) {
-      $this->content = <<<HTML
+  if ($wasSaved) {
+    $this->content = <<<HTML
 <span>Your event was saved. Go back <a href="/">home</a></span>.
 HTML;
-    } else {
-      $this->content = <<<HTML
+  } else {
+    $this->content = <<<HTML
 <form action="." method="post">
 <input type="text" name="name" placeholder="name" value=""></input><br/>
 <input type="text" name="location" placeholder="location" value=""></input><br/>
@@ -122,15 +186,15 @@ HTML;
 <input type="text" checked="true" name="verified" value="" style="display:none!important;"></input><br/>
 </form>
 HTML;
-    }
-
-    $this->write();
   }
 
-  function write()
-  {
-    echo $this->content;
-  }
+  $this->write();
+}
+
+function write()
+{
+  echo $this->content;
+}
 
 }
 
