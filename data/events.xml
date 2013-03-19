@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <events>
-  <event>
+<event>
+    <name>The Cypher</name>
     <location>Underground</location>
     <city>Cologne</city>
     <price>For free</price>
