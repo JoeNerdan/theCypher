@@ -11,7 +11,10 @@ function initialize() {
 	var geocoder = new google.maps.Geocoder();
 
 
-	var data = {
+	//this is testdata, later this will be defined in a global variable which is created in the php
+	var data = [
+
+		{
     "name" : "The Cypher",
     "location" : "undergorund",
     "city" : "cologne",
@@ -23,7 +26,22 @@ function initialize() {
     "email" : "foo@boo.com",
     "submitter_name" : "burnt",
     "website" : "thecypher"
-	};
+	},
+	{
+    "name" : "Another freestyle event",
+    "location" : "In the park",
+    "city" : "hamburg",
+    "address" : "hamburg",
+    "price" : "4 bucks",
+    "date" : "-", // TODO calculate next date according to week day the event reoccours on
+    "time" : "22:00",
+    "everyWeek" : "Thursday",
+    "email" : "foo@boo.com",
+    "submitter_name" : "joe",
+    "website" : "free.yo"
+	}
+
+];
 
 	function createMarker(data){
 
@@ -32,6 +50,7 @@ function initialize() {
 				'address': data.address
 			}, 
 			function(results, status) {
+				console.log(results);
 				if(status == google.maps.GeocoderStatus.OK) {
 					var infowindow = new google.maps.InfoWindow();
 					var marker = new google.maps.Marker({
@@ -48,7 +67,11 @@ function initialize() {
 
 	}
 
-	createMarker(data);
+	var i = 0;
+	for (i = data.length; i--;) {
+		console.log(data[i]);
+	createMarker( data[i]);
+	}
 
 
 
