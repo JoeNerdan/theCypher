@@ -5,8 +5,8 @@
 </div>
 
 <?php if (!defined('S')) die ("What are you doing?"); 
-// include lib/xml.php
-if (!require_once(dirname(dirname(__FILE__)).'/lib/xml.php')) die ("A giant man stole the clouds..."); 
+// include lib/db.php
+if (!require_once(dirname(dirname(__FILE__)).'/lib/db.php')) die ("A giant man stole the clouds..."); 
 
 t('Events'); 
 
@@ -20,6 +20,12 @@ class events {
 
 
 
+  function dbTest() {
+    echo "hey joe";
+    $sql = new db();
+    $this->content = $sql->readAllEvents();
+    $this->write();
+  }
 
   //shows the map and the list of events
   function index() {
