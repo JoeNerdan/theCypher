@@ -24,6 +24,7 @@ class events {
     echo "hey joe";
     $sql = new db();
     $this->content = $sql->readAllEvents();
+    var_dump($sql);
     $this->write();
   }
 
