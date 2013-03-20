@@ -61,74 +61,7 @@ HTML
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=&sensor=false">
     </script>
-    <script type="text/javascript">
-      function initialize() {
-        //middle of germany
-        var mapOptions = {
-          center: new google.maps.LatLng(50.9, 10.26),
-          zoom: 6,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
-
-
-   var address = 'Cologne';
-
-   var geocoder = new google.maps.Geocoder();
-
-   geocoder.geocode({
-      'address': address
-   }, 
-   function(results, status) {
-      if(status == google.maps.GeocoderStatus.OK) {
-         new google.maps.Marker({
-            position: results[0].geometry.location,
-            map: map,
-            title: "foo",
-
-         });
-      }
-   });
-
-   var address = 'berlin';
-   geocoder.geocode({
-      'address': address
-   }, 
-   function(results, status) {
-      if(status == google.maps.GeocoderStatus.OK) {
-         new google.maps.Marker({
-            position: results[0].geometry.location,
-            map: map
-         });
-      }
-   });
-
-var marker = new google.maps.Marker({
-
-  position: new google.maps.LatLng(50.9, 10.26),
-    map: map,
-              title: "title",
-              });
-
-      var contentString = "Hello!!!";
-      var infowindow = new google.maps.InfoWindow;
-
-      bindInfoW(marker, contentString, infowindow);
-
-
-      function bindInfoW(marker, contentString, infowindow)
-      {
-                google.maps.event.addListener(marker, 'click', function() {
-                              infowindow.setContent(contentString);
-                                          infowindow.open(map, marker);
-                                      });
-      }
-
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-
-    </script>
+    <script type="text/javascript" src="/js/mapManager.js"></script>
 
 
 HTML;
@@ -143,7 +76,9 @@ HTML;
 function save(){
   $foo = new eventHandler();
   $testData = array(
+    "name" => "The Cypher",
     "location" => "undergorund",
+    "address" => "undergorund",
     "city" => "cologne",
     "price" => "for free",
     "date" => "-", // TODO calculate next date according to week day the event reoccours on
@@ -174,6 +109,7 @@ HTML;
 <form action="." method="post">
 <input type="text" name="name" placeholder="name" value=""></input><br/>
 <input type="text" name="location" placeholder="location" value=""></input><br/>
+<input type="text" name="address" placeholder="address" value=""></input><br/>
 <input type="text" name="city" placeholder="city" value=""></input><br/>
 <input type="text" name="price" placeholder="price" value=""></input><br/>
 <input type="text" name="date" placeholder="date" value=""></input><br/>
