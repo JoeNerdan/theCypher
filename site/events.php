@@ -19,54 +19,25 @@ class events {
 
   public $content = "";
 
-  function dbTest() {
-    echo "hey joe";
-    $db = new db();
-    $db->connect();
-
-
-  $testData = array(
-    "name" => "The Cypher",
-    "location" => "undergorund",
-    "address" => "undergorund",
-    "city" => "cologne",
-    "price" => "for free",
-    "date" => "-", // TODO calculate next date according to week day the event reoccours on
-    "time" => "22:00",
-    "everyWeek" => "Thursday",
-    "email" => "foo@boo.com",
-    "submitter" => "burnt",
-    "visible" => 0,
-    "homepage" => "thecypher",
-    "description" => "more oldschool than you"
-  );
-
-    $res = $db->saveEvent($testData);
-    echo $res;
-    $this->content = "testDB";
-    $this->write();
-  }
 
   //shows the map and the list of events
   function index() {
 
-    $eventHandler = new eventHandler();
     //the events should be in json, we will act like it right now, this is a FIXME
-    //
+    $db = new db();
+    $events = $db->getEvents();
+    //$eventsHtml = $this->convertEventsTo($events, 'html');
+    $eventsHtml = "";
+    //var_dump($eventsHtml);
+
+    $eventsJSON = $this->convertEventsTo($events, 'json');
+
     $this->content = <<<HTML
     here should be a list of events... and a map
 <a href="/events/add/">Add an event</a>
 HTML;
 
-    $theEvents = <<<HTML
-<div>
-HTML
-    .$eventHandler->readEvents() .<<<HTML
-</div>
-HTML
-    ;
-
-    $this->content .= $theEvents. <<<HTML
+    $this->content .= <<<HTML
 <div id="mapContainer"> 
 
 
@@ -87,20 +58,134 @@ HTML
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=&sensor=false">
     </script>
+    <script type="text/javascript" id="theEventsJson">
+{$eventsJSON}
+</script>
     <script type="text/javascript" src="/js/mapManager.js"></script>
 
 
-HTML;
+HTML
+    .$eventsHtml;
 
     $this->write();
+  }
+
+  /*
+   *this needs to be refactored somehow.
+   the structure of the event-list should not be in some php file but in a html document. FIXME
+
+   TODO refactor so the for each can be used in both cases
+   * */
+  function convertEventsTo($events, $returnType){
+    $res = "";
+
+    if ($returnType == 'html') {
+      $conStart = "<div class='event'>";
+      $conEnd = "</div>";
+      $keyConStart = "<div class='event_";
+      $keyConEnd = "'>";
+      $valConStart = "";
+      $valConEnd = "</div>";
+
+      foreach ($events as $event) {
+        $res .= $conStart;
+
+        foreach($event as $key=>$value){
+          $res .= $keyConStart.$key.$keyConEnd.$valConStart.$value.$valConEnd;
+        }
+
+        $res .= $conEnd;
+
+      }
+    } else if ($returnType == 'json'){
+      $conStart = "events = {";
+      $conEnd = "};";
+      $keyConStart = "'";
+      $keyConEnd = "' : ";
+      $valConStart = "'";
+      $valConEnd = "',";
+
+
+      $res .= $conStart;
+    foreach ($events as $event) {
+
+        foreach($event as $key=>$value){
+          $res .= $keyConStart.$key.$keyConEnd.$valConStart.$value.$valConEnd;
+        }
+    }
+
+      $res .= $conEnd;
+
+    }else{
+      return "something went wrong while transforming the db-data into ".$returnType;
+    };
+
+
+
+    return $res;
+  }
+
+
+  function add() {
+    //   var_dump($_POST);
+
+
+    $wasSaved = false;
+    if (isset($_POST['verified'])) {
+      $wasSaved = true;
+    }
+
+
+    if ($wasSaved) {
+      $db = new db();
+      //   $db->connect();
+
+      $data4db = $_POST;
+      unset($data4db['verified']);
+      unset($data4db['submit']);
+      $data4db['visible'] = 0;
+
+      $res = $db->saveEvent($data4db);
+
+      $this->content .= <<<HTML
+<span>Your event was saved. Go back <a href="/">home</a></span>.
+HTML;
+    } else {
+      $this->content = <<<HTML
+<form action="add" method="post" name="inputForm">
+<input type="text" name="name" placeholder="name" value=""></input><br/>
+<input type="text" name="location" placeholder="location" value=""></input><br/>
+<input type="text" name="address" placeholder="address" value=""></input><br/>
+<input type="text" name="city" placeholder="city" value=""></input><br/>
+<input type="text" name="price" placeholder="price" value=""></input><br/>
+<input type="text" name="date" placeholder="date" value=""></input><br/>
+<input type="text" name="time" placeholder="time" value=""></input><br/>
+<input type="text" name="everyWeek" placeholder="everyWeek" value=""></input><br/>
+<input type="text" name="email" placeholder="email" value=""></input><br/>
+<input type="text" name="submitter" placeholder="name" value=""></input><br/>
+<input type="text" name="homepage" placeholder="website" value=""></input><br/>
+<input type="textarea" name="description" placeholder="description" value=""></input><br/>
+<input type="submit" name="submit" value="Submit"></input><br/>
+<input type="text" checked="true" name="verified" value="" style="display:none!important;"></input><br/>
+</form>
+HTML;
+    }
+
+    $this->write();
+  }
+
+  function write()
+  {
+    echo $this->content;
+  }
+
 }
 
 
+/*
 
 
-//fixme is this right here? should it be callable by url?
-function save(){
-  $foo = new eventHandler();
+
   $testData = array(
     "name" => "The Cypher",
     "location" => "undergorund",
@@ -111,98 +196,12 @@ function save(){
     "time" => "22:00",
     "everyWeek" => "Thursday",
     "email" => "foo@boo.com",
-    "name" => "burnt",
-    "website" => "thecypher"
+    "submitter" => "burnt",
+    "visible" => 0,
+    "homepage" => "thecypher",
+    "description" => "more oldschool than you"
   );
-  $foo->saveEvent($testData);
-}
 
-function add() {
-  //  var_dump($_POST);
-
-  $wasSaved = false;
-  if (isset($_POST['verified'])) {
-    $wasSaved = true;
-  }
-
-
-  if ($wasSaved) {
-    $this->content = <<<HTML
-<span>Your event was saved. Go back <a href="/">home</a></span>.
-HTML;
-  } else {
-    $this->content = <<<HTML
-<form action="." method="post">
-<input type="text" name="name" placeholder="name" value=""></input><br/>
-<input type="text" name="location" placeholder="location" value=""></input><br/>
-<input type="text" name="address" placeholder="address" value=""></input><br/>
-<input type="text" name="city" placeholder="city" value=""></input><br/>
-<input type="text" name="price" placeholder="price" value=""></input><br/>
-<input type="text" name="date" placeholder="date" value=""></input><br/>
-<input type="text" name="time" placeholder="time" value=""></input><br/>
-<input type="text" name="everyWeek" placeholder="everyWeek" value=""></input><br/>
-<input type="text" name="email" placeholder="email" value=""></input><br/>
-<input type="text" name="name" placeholder="name" value=""></input><br/>
-<input type="text" name="website" placeholder="website" value=""></input><br/>
-<input type="submit" name="submit" value="Submit"></input><br/>
-<input type="text" checked="true" name="verified" value="" style="display:none!important;"></input><br/>
-</form>
-HTML;
-  }
-
-  $this->write();
-}
-
-function write()
-{
-  echo $this->content;
-}
-
-}
-
-class eventHandler {
-
-
-  public function saveEvent($eventData)
-  {
-    echo "in saveEvent";
-    print_r($eventData);
-  }
-
-  //todo maybe implement a kind of filter here?
-  public function readEvents(){
-
-    $doc = new DOMDocument();
-    $doc->load(dirname(dirname(__FILE__)).'/data/events.xml');
-    var_dump($doc);
-
-    $events = $doc->getElementsByTagName( "event" );
-    foreach( $events as $event )
-    {
-
-
-      $foo = array(
-        "name" => $event->getElementsByTagName("name")->item(0)->nodeValue,
-        "location" => $event->getElementsByTagName("location")->item(0)->nodeValue,
-        "city" => $event->getElementsByTagName("city")->item(0)->nodeValue,
-        "price" => $event->getElementsByTagName("price")->item(0)->nodeValue,
-        "date" => $event->getElementsByTagName("date")->item(0)->nodeValue,
-        "time" => $event->getElementsByTagName("time")->item(0)->nodeValue,
-        "everyWeek" => $event->getElementsByTagName("everyWeek")->item(0)->nodeValue,
-        "email" => $event->getElementsByTagName("email")->item(0)->nodeValue,
-        "name" => $event->getElementsByTagName("name")->item(0)->nodeValue,
-        "website" => $event->getElementsByTagName("website")->item(0)->nodeValue
-      );
-
-
-      var_dump($foo);
-
-    }
-
-    return $foo;
-  }
-
-
-}
+ */
 
 ?>

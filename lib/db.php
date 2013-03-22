@@ -10,7 +10,7 @@ class db {
 
 
   function connect(){
-    echo "connect";
+ //   echo "connect";
     $dsn = 'mysql:dbname='.$this->db_name.';host='.$this->db_host;
 
     try{
@@ -26,7 +26,11 @@ class db {
   }
 
   function saveEvent($data){
+    $this->connect();
     //var_dump($this->db_conn);
+  //  echo "<br/><br/>";
+  //  var_dump($data);
+   // echo "<br/><br/>";
 
     $sth = $this->db_conn->prepare("insert into events ( 
       name, 
@@ -60,12 +64,22 @@ class db {
 
       $sth->execute($data);
 
-return "succ";
+    return true;
   }
 
-  public function readAllEvents()
+  public function getEvents()
   {
-    return "faaoo";
+    $res = array();
+    $this->connect();
+    $sth = $this->db_conn->query('select * from events;');
+ //   $sth->setFetchMode(PDO::FETCH_OBJ);
+    $sth->setFetchMode(PDO::FETCH_ASSOC);
+
+      while($row = $sth->fetch()){
+       // var_dump($row);
+        array_push($res, $row);
+      };
+    return $res;
   }
 
 

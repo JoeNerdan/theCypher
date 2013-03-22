@@ -7,3 +7,49 @@ list-style-type:none;
 }
 .menuListEntry{
 }
+.event {
+border: 2px solid black;
+font-size: 0.8em;
+}
+.event_id:before {
+content: "id:  ";
+}
+.event_name:before {
+content: "name:  ";
+}
+.event_location:before {
+content: "location:  ";
+}
+.event_address:before {
+content: "address:  ";
+}
+.event_city:before {
+content: "city:  ";
+}
+.event_price:before {
+content: "price:  ";
+}
+.event_date:before {
+content: "date:  ";
+}
+.event_time:before {
+content: "time:  ";
+}
+.event_everyWeek:before {
+content: "everyWeek:  ";
+}
+.event_email:before {
+content: "email:  ";
+}
+.event_homepage:before {
+content: "homepage:  ";
+}
+.event_visible:before {
+content: "visible:  ";
+}
+.event_submitter:before {
+content: "submitter:  ";
+}
+.event_description:before {
+content: "description:  ";
+}
