@@ -14,6 +14,7 @@ t('Events');
  *this is the class needed by shortphp
  it contains the actions which can be called via url
  * */
+
 class events {
 
   public $content = "";
@@ -22,6 +23,26 @@ class events {
     echo "hey joe";
     $db = new db();
     $db->connect();
+
+
+  $testData = array(
+    "name" => "The Cypher",
+    "location" => "undergorund",
+    "address" => "undergorund",
+    "city" => "cologne",
+    "price" => "for free",
+    "date" => "-", // TODO calculate next date according to week day the event reoccours on
+    "time" => "22:00",
+    "everyWeek" => "Thursday",
+    "email" => "foo@boo.com",
+    "submitter" => "burnt",
+    "visible" => 0,
+    "homepage" => "thecypher",
+    "description" => "more oldschool than you"
+  );
+
+    $res = $db->saveEvent($testData);
+    echo $res;
     $this->content = "testDB";
     $this->write();
   }
