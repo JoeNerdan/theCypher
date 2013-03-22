@@ -47,10 +47,10 @@ function initialize() {
 
 
 		geocoder.geocode({
-				'address': data.address
+				'address': data.address+" "+data.city
 			}, 
 			function(results, status) {
-				console.log(results);
+		//		console.log(results);
 				if(status == google.maps.GeocoderStatus.OK) {
 					var infowindow = new google.maps.InfoWindow();
 					var marker = new google.maps.Marker({
@@ -59,18 +59,35 @@ function initialize() {
 							title: data.name
 						});
 					//here we need to prepare the infos to look nice in the bubble
-					bindInfoW(marker, 
-						"Name: " + data.name + "Location: " + data.location
-						, infowindow);
+
+          var infoText = 
+      "<h1 class='bubbleTitle'>"+data.name+"</h1>"
+      + "<br/>" 
+      + "Location: " + data.location 
+      + "<br/>" 
+      + "Date: " + data.date 
+      + "<br/>" 
+      + "Doors open: " + data.time 
+      + "<br/>" 
+      + "website <a href='" + data.homepage + "'>" + data.homepage + "</a>"
+      + "<br/>" 
+      + "<div class='bubble_description'>"
+      + data.description
+      +"</div>"
+      + "<br/>" 
+      ;
+
+					bindInfoW(marker, infoText , infowindow);
 				}
 			});
 
 	}
 
+//console.log(events);
 	var i = 0;
-	for (i = data.length; i--;) {
-		console.log(data[i]);
-	createMarker( data[i]);
+	for (i = events.length; i--;) {
+		console.log(events[i]);
+	createMarker( events[i]);
 	}
 
 

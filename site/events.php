@@ -30,7 +30,9 @@ class events {
     $eventsHtml = "";
     //var_dump($eventsHtml);
 
-    $eventsJSON = $this->convertEventsTo($events, 'json');
+ //   $eventsJSON = $this->convertEventsTo($events, 'json');
+    $eventsJSON = 'var events = '.json_encode($events).';';
+ //   var_dump($eventsJSON);
 
     $this->content = <<<HTML
     here should be a list of events... and a map

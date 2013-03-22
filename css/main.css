@@ -7,6 +7,16 @@ list-style-type:none;
 }
 .menuListEntry{
 }
+
+
+.bubble_description{
+padding: 1em;
+}
+.bubbleTitle{
+font-size: 1.3em;
+color: gray;
+}
+
 .event {
 border: 2px solid black;
 font-size: 0.8em;
