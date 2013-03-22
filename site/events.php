@@ -18,13 +18,11 @@ class events {
 
   public $content = "";
 
-
-
   function dbTest() {
     echo "hey joe";
-    $sql = new db();
-    $this->content = $sql->readAllEvents();
-    var_dump($sql);
+    $db = new db();
+    $db->connect();
+    $this->content = "testDB";
     $this->write();
   }
 
