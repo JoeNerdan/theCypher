@@ -43,7 +43,7 @@ HTML;
 <div id="mapContainer"> 
 
 
-    <div id="map-canvas">asd</div>
+    <div id="map-canvas">Here should be a map. If you see this something went wrong. Go outside and meet a friend!</div>
 
 </div>
 
@@ -154,15 +154,23 @@ HTML
 HTML;
     } else {
       $this->content = <<<HTML
-<form action="add" method="post" name="inputForm">
-<input type="text" name="name" placeholder="name" value=""></input><br/>
+<form action="add" method="post" id="inputForm" name="inputForm">
+<input type="text" class="validate[required]" name="name" placeholder="name" value=""></input><br/>
 <input type="text" name="location" placeholder="location" value=""></input><br/>
 <input type="text" name="address" placeholder="address" value=""></input><br/>
 <input type="text" name="city" placeholder="city" value=""></input><br/>
 <input type="text" name="price" placeholder="price" value=""></input><br/>
-<input type="text" name="date" placeholder="date" value=""></input><br/>
+
+<input type="radio" id="reoccuring" name="everyWeek" value="Reoccuring Event?">Reoccuring Event?</input><br/>
+<input type="radio" id="oneTime" name="everyWeek" value="One time Event?">One time Event?</input><br/>
+<!-- FIXME date/time should only be required when visible
+class="validate[required,custom[date],future[now]]"
+-->
+<span id="dateCon" style="display:none;">
+<input type="text"  name="date" placeholder="date" value=""></input><br/>
 <input type="text" name="time" placeholder="time" value=""></input><br/>
-<input type="text" name="everyWeek" placeholder="everyWeek" value=""></input><br/>
+</span>
+
 <input type="text" name="email" placeholder="email" value=""></input><br/>
 <input type="text" name="submitter" placeholder="name" value=""></input><br/>
 <input type="text" name="homepage" placeholder="website" value=""></input><br/>
@@ -170,6 +178,8 @@ HTML;
 <input type="submit" name="submit" value="Submit"></input><br/>
 <input type="text" checked="true" name="verified" value="" style="display:none!important;"></input><br/>
 </form>
+<script type="text/javascript" src="/js/jquery.uniform.js"></script>
+<script type="text/javascript" src="/js/forms.js"></script>
 HTML;
     }
 

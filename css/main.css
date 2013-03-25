@@ -1,65 +1,153 @@
 body {
-  background-color: gray;
+  background-color: #010000;
   font-family: sans-serif;
+  color: white;
 }
-#menuList{
-list-style-type:none;
+#menu{
+  height: 30px;
+  width: 50%;
+  margin: auto;
+  background-color: #636566;
+
 }
-.menuListEntry{
+#menuList {
+  list-style-type: none;
+  text-align: justify;
+  height: 21px;
+  margin: 0;
+  padding: 0.3em;
+  
+}
+
+#menuList li {
+  display: inline;
+}
+
+#menuList li a {
+  text-align: left;
+  display: inline-block;
+  text-decoration: none;
+  color: #e36920;
+  font-weight: bold;
+}
+
+#menuList .stretch {
+  display: inline-block;
+  width: 100%;
+  zoom: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+h1{
+  color: #e36920;
 }
 
 
 .bubble_description{
-padding: 1em;
+  padding: 1em;
 }
 .bubbleTitle{
-font-size: 1.3em;
-color: gray;
+  font-size: 1.3em;
+  color: gray;
 }
 
 .event {
-border: 2px solid black;
-font-size: 0.8em;
+  border: 2px solid black;
+  font-size: 0.8em;
 }
 .event_id:before {
-content: "id:  ";
+  content: "id:  ";
 }
 .event_name:before {
-content: "name:  ";
+  content: "name:  ";
 }
 .event_location:before {
-content: "location:  ";
+  content: "location:  ";
 }
 .event_address:before {
-content: "address:  ";
+  content: "address:  ";
 }
 .event_city:before {
-content: "city:  ";
+  content: "city:  ";
 }
 .event_price:before {
-content: "price:  ";
+  content: "price:  ";
 }
 .event_date:before {
-content: "date:  ";
+  content: "date:  ";
 }
 .event_time:before {
-content: "time:  ";
+  content: "time:  ";
 }
 .event_everyWeek:before {
-content: "everyWeek:  ";
+  content: "everyWeek:  ";
 }
 .event_email:before {
-content: "email:  ";
+  content: "email:  ";
 }
 .event_homepage:before {
-content: "homepage:  ";
+  content: "homepage:  ";
 }
 .event_visible:before {
-content: "visible:  ";
+  content: "visible:  ";
 }
 .event_submitter:before {
-content: "submitter:  ";
+  content: "submitter:  ";
 }
 .event_description:before {
-content: "description:  ";
+  content: "description:  ";
 }
+
+.color1 { color: #222222;}
+.color2 { color: #232822;}
+.color3 { color: #212226;}
+.color4 { color: #101612;}
+.color5 { color: #0f0d0e;}
+.color6 { color: #060100;}
+.color7 { color: #090400;}
+.color8 { color: #ec6b17;}
+.color9 { color: #1a1819;}
+.color10 { color: #303030;}
+.color11 { color: #2d2d2d;}
+.color12 { color: #1e1c1d;}
+.color13 { color: #080808;}
+.color14 { color: #040404;}
+.color15 { color: #e36920;}
+.color16 { color: #151515;}
+.color17 { color: #030102;}
+.color18 { color: #010506;}
+.color19 { color: #0e0c0d;}
+.color20 { color: #050505;}
+.color21 { color: #1e1e1e;}
+.color22 { color: #222021;}
+.color23 { color: #f9fdff;}
+.color24 { color: #fbfffc;}
+.color25 { color: #121011;}
+.color26 { color: #020202;}
+.color27 { color: #fdfdfd;}
+.color28 { color: #181818;}
+.color29 { color: #171516;}
+.color30 { color: #252326;}
+.color31 { color: #20282a;}
+.color32 { color: #151314;}
+.color33 { color: #f5ffff;}
+.color34 { color: #fefffb;}
+.color35 { color: #d9d9d9;}
+.color36 { color: #060606;}
+.color37 { color: #080607;}
+.color38 { color: #0f0802;}
+.color39 { color: #0a0200;}
+.color40 { color: #0b0b0b;}
+.color41 { color: #0d0d0d;}
+.color42 { color: #141213;}
+.color43 { color: #0a0809;}
+.color44 { color: #0a0a0a;}
