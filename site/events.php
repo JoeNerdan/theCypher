@@ -1,6 +1,16 @@
-<div id="eventMenu">
-<a href="/events/add">add event</a>
-<a href="/events/">list all events</a>
+
+
+<div id="sidebar">
+
+<ul>
+  <li>
+    <a href="/events/add">add event</a>
+  </li>
+    <li>
+      <a href="/events/">list all events</a>
+    </li>
+  
+</ul>
 
 </div>
 
@@ -153,29 +163,45 @@ HTML
 <span>Your event was saved. Go back <a href="/">home</a></span>.
 HTML;
     } else {
-      $this->content = <<<HTML
+      $this->content .= <<<HTML
 <form action="add" method="post" id="inputForm" name="inputForm">
-<input type="text" class="validate[required]" name="name" placeholder="name" value=""></input><br/>
-<input type="text" name="location" placeholder="location" value=""></input><br/>
-<input type="text" name="address" placeholder="address" value=""></input><br/>
-<input type="text" name="city" placeholder="city" value=""></input><br/>
-<input type="text" name="price" placeholder="price" value=""></input><br/>
+  <h1>New Event</h1>
+  <h2>What's it called?</h2>
+<input type="text" class="validate[required]" id="name" name="name" placeholder="name" value=""></input><br/>
 
+  <h2>Where is it?</h2>
+<input type="text" name="location" id="location" placeholder="location" value=""></input><br/>
+<input type="text" name="address" id="address" placeholder="address" value=""></input><br/>
+<input type="text" name="city" id="city" placeholder="city" value=""></input><br/>
+
+<h2>Give me the details!</h2>
+<input type="text" name="price" id="price" placeholder="price" value=""></input><br/>
+<input type="textarea" name="description" id="description" placeholder="description" value=""></input><br/>
+
+<h2>Is it a one time event or do you jam regulary?</h2>
 <input type="radio" id="reoccuring" name="everyWeek" value="Reoccuring Event?">Reoccuring Event?</input><br/>
 <input type="radio" id="oneTime" name="everyWeek" value="One time Event?">One time Event?</input><br/>
 <!-- FIXME date/time should only be required when visible
 class="validate[required,custom[date],future[now]]"
 -->
-<span id="dateCon" style="display:none;">
-<input type="text"  name="date" placeholder="date" value=""></input><br/>
-<input type="text" name="time" placeholder="time" value=""></input><br/>
+<span id="dayCon" style="display:none;">
+  <h3>How often is it? And on which day?</h3>
+  <input type="text"  name="date" id="date" placeholder="date" value=""></input><br/>
+  <input type="text" name="time" id="time" placeholder="time" value=""></input><br/>
 </span>
 
-<input type="text" name="email" placeholder="email" value=""></input><br/>
-<input type="text" name="submitter" placeholder="name" value=""></input><br/>
-<input type="text" name="homepage" placeholder="website" value=""></input><br/>
-<input type="textarea" name="description" placeholder="description" value=""></input><br/>
-<input type="submit" name="submit" value="Submit"></input><br/>
+
+<span id="dateCon" style="display:none;">
+  <h3>So when is it?</h3>
+  <input type="text"  name="date" id="date" placeholder="date" value=""></input><br/>
+  <input type="text" name="time" id="time" placeholder="time" value=""></input><br/>
+</span>
+
+<h2>Who are you? Your mail is just visible to us.</h2>
+<input type="text" name="email" id="email" placeholder="email" value=""></input><br/>
+<input type="text" name="submitter" id="submitter" placeholder="name" value=""></input><br/>
+<input type="text" name="homepage" id="homepage" placeholder="website" value=""></input><br/>
+<input type="submit" name="submit" id="submit" value="Submit"></input><br/>
 <input type="text" checked="true" name="verified" value="" style="display:none!important;"></input><br/>
 </form>
 <script type="text/javascript" src="/js/jquery.uniform.js"></script>
@@ -188,7 +214,11 @@ HTML;
 
   function write()
   {
-    echo $this->content;
+    echo <<<HTML
+<div class="main" id="mainWithSidebar">
+{$this->content}
+</div>
+HTML;
   }
 
 }

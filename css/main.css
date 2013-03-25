@@ -1,13 +1,73 @@
+html {
+  margin: 0;
+  padding: 0;
+
+}
 body {
-  background-color: #010000;
+  background-color: #565656;
   font-family: sans-serif;
   color: white;
+  margin: 0;
+  padding: 0;
 }
+
+
+
+#wrap {
+  background-color: #010000;
+  background-color: #212226;
+  width:960px; /* 366px + 594px makes golden ratio*/
+  margin:0 auto;
+  padding-top: 1em;
+}
+#header {
+  background-color: #212226;
+  background-color: black;
+  padding-bottom:1em;
+  height: 130px;
+}
+#header img{
+  height: 130px;
+}
+#header h1{
+  float: right;
+}
+.main {
+  min-height: 540px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+#main {
+}
+#mainWithSidebar {
+  background-color: #212226;
+  width: 710px;
+  float: right;
+
+
+}
+#sidebar {
+  background-color: #212226;
+  float:left;
+  width: 250px;
+}
+#footer {
+  padding-top: 0.5em;
+  clear: both;
+  background-color: #212226;
+  background-color: #565656;
+}
+
+/*
+the main menu at the top
+*/
 #menu{
   height: 30px;
   width: 50%;
   margin: auto;
-  background-color: #636566;
+  margin: 0;
+  background-color: black;
+float:right;
 
 }
 #menuList {
@@ -16,11 +76,12 @@ body {
   height: 21px;
   margin: 0;
   padding: 0.3em;
-  
+  background-color: #565656;
 }
 
 #menuList li {
   display: inline;
+  
 }
 
 #menuList li a {
@@ -37,7 +98,66 @@ body {
   zoom: 1;
 }
 
+/*
+ / the main menu at the top
+*/
 
+/*
+  the footer menu at the bottom
+*/
+
+#footerMenu{
+  height: 30px;
+  width: 50%;
+  border-top: 1px solid #d98555;
+}
+#footerMenuList {
+  list-style-type: none;
+  text-align: justify;
+  height: 21px;
+  margin: 0;
+  padding: 0.3em;
+
+}
+
+#footerMenuList li {
+  display: inline;
+}
+#footerMenuList li:last-child {
+}
+
+#footerMenuList li a {
+  text-align: left;
+  display: inline-block;
+  text-decoration: none;
+  color: #d98555;
+  font-size: 0.8em;
+  border-left: 1px solid #d98555;
+  padding-left: 0.5em;
+}
+
+#footerMenuList .stretch {
+  display: inline-block;
+  width: 100%;
+  zoom: 1;
+}
+
+/*
+  / the footer menu at the bottom
+*/
+
+.sideMenu {
+  width: 20%;
+  height: 100%;
+  float: left;
+
+}
+.mainMenu {
+  float: left;
+  width: 70%;
+  height: 100%;
+
+}
 
 
 
@@ -49,6 +169,28 @@ body {
 
 h1{
   color: #e36920;
+  margin: 0;
+  padding: 0;
+}
+
+form > h1, h2, h3, h4, h5{
+  color: #d9d9d9;
+  font-weight: normal;
+  font-size: 1em;
+}
+form > h1{
+  margin: 0;
+  padding: 0;
+  margin: 0.5em 0;
+  font-size: 1.3em;
+}
+form > h2{
+  margin: 0;
+  padding: 0;
+}
+form > h3{
+  margin: 0;
+  padding: 0;
 }
 
 
